@@ -1,5 +1,8 @@
 package com.criss.wang.mybatis.generator;
 
+import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.java.*;
@@ -15,7 +18,7 @@ import java.util.Random;
  * @Date 2019/11/18 16:35
  * @Description
  **/
-public class LombokPlugin extends SerializablePlugin {
+public class MyGeneratorPlugin extends SerializablePlugin {
 
     @Override
     public boolean validate(List<String> list) {
@@ -23,7 +26,7 @@ public class LombokPlugin extends SerializablePlugin {
     }
 
     /**
-     *  序列号
+     * 序列号
      **/
     @Override
     protected void makeSerializable(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
@@ -53,16 +56,24 @@ public class LombokPlugin extends SerializablePlugin {
         topLevelClass.addImportedType("lombok.Data");
         topLevelClass.addImportedType("lombok.Builder");
         topLevelClass.addImportedType("lombok.EqualsAndHashCode");
+        topLevelClass.addImportedType("lombok.AllArgsConstructor");
+        topLevelClass.addImportedType("lombok.NoArgsConstructor");
+
 
         //添加domain的注解
         topLevelClass.addAnnotation("@Data");
         topLevelClass.addAnnotation("@Builder");
-        topLevelClass.addAnnotation("@EqualsAndHashCode");
+        topLevelClass.addAnnotation("@EqualsAndHashCode(callSuper = true)");
+        topLevelClass.addAnnotation("@AllArgsConstructor");
+        topLevelClass.addAnnotation("@NoArgsConstructor");
 
         //添加domain的注释
         topLevelClass.addJavaDocLine("/**");
-        topLevelClass.addJavaDocLine("* Created by wangqiubao on " + date2Str(new Date()));
+        topLevelClass.addJavaDocLine("* @Author wangqiubao");
+        topLevelClass.addJavaDocLine("* @Date " + date2Str(new Date()));
+        topLevelClass.addJavaDocLine("* @Description");
         topLevelClass.addJavaDocLine("*/");
+
 
         // 判断实体类或表中有没有时间
         List<Field> fields = topLevelClass.getFields();
@@ -74,19 +85,31 @@ public class LombokPlugin extends SerializablePlugin {
             }
         }
 
-        // 继承BaseEntity
-        topLevelClass.addImportedType("com.criss.wang.mybatis.base.BaseEntity");
-        topLevelClass.setSuperClass("BaseEntity");
+        // 修改Mapper文件中selectByPrimaryKey方法名 -- TODO 很有局限性，需要针对每个表修改
+        introspectedTable.setSelectByPrimaryKeyStatementId("selectByTaskHistoryId");
         return true;
     }
 
+    // Mapper文件的注释
     @Override
     public boolean clientGenerated(Interface interfaze, TopLevelClass topLevelClass,
                                    IntrospectedTable introspectedTable) {
-        //Mapper文件的注释
+
         interfaze.addJavaDocLine("/**");
-        interfaze.addJavaDocLine("* Created by wangqiubao on " + date2Str(new Date()));
+        interfaze.addJavaDocLine("* @Author wangqiubao");
+        interfaze.addJavaDocLine("* @Date " + date2Str(new Date()));
+        interfaze.addJavaDocLine("* @Description");
         interfaze.addJavaDocLine("*/");
+
+        // 添加Mapper注解
+        if (interfaze.getType().getShortName().endsWith("Mapper")) {
+            interfaze.addImportedType(new FullyQualifiedJavaType("org.apache.ibatis.annotations.Mapper"));
+            interfaze.addAnnotation("@Mapper");
+        }
+
+        // 修改Xml文件中selectByPrimaryKey方法名 -- TODO 很有局限性，需要针对每个表修改
+        introspectedTable.setSelectByPrimaryKeyStatementId("selectByTaskHistoryId");
+
         return true;
     }
 

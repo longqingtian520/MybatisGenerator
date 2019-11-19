@@ -1,5 +1,5 @@
 server:
-  port: 9090
+  port: 9094
 spring:
   datasource:
     url: jdbc:mysql://office-server:3306/UCareDB_Test?useSSL=false
@@ -37,12 +37,11 @@ spring:
         Asia/Shanghai
       default-property-inclusion: always
       deserialization:
-        #允许对象忽略json中不存在的属性
         fail_on_unknown_properties: false
-  # mybatis配置
-  mybatis:
-    mapper-locations: classpath*:/mappings/*/*.xml
-    type-aliases-package: net.cc.ucare.entity
-    configuration:
-      map-underscore-to-camel-case: true
+  # mybatis
+mybatis:
+  mapper-locations: classpath*:/mapper/*.xml
+  type-aliases-package: com.criss.wang.mybatis.model
+  configuration:
+    map-underscore-to-camel-case: true
 

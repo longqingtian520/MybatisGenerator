@@ -4,6 +4,7 @@ import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.internal.DefaultShellCallback;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -11,6 +12,7 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+@MapperScan("com.criss.wang.mybatis.XmlMapper")
 @SpringBootApplication
 public class MybatisGeneratorApplication {
 
@@ -21,7 +23,7 @@ public class MybatisGeneratorApplication {
      * @Param [args]
      * @Description 测试主函数
      **/
-    public static void main1(String[] args) {
+    public static void main(String[] args) {
         SpringApplication.run(MybatisGeneratorApplication.class, args);
     }
 
@@ -32,7 +34,7 @@ public class MybatisGeneratorApplication {
      * @Param [args]
      * @Description 自动生成代码主函数
      **/
-    public static void main(String[] args) throws Exception {
+    public static void main9(String[] args) throws Exception {
         MybatisGeneratorApplication app = new MybatisGeneratorApplication();
 
         System.out.println(app.getClass().getResource("/").getPath());
