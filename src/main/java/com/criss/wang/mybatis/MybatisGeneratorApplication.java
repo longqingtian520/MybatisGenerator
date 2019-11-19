@@ -14,11 +14,25 @@ import java.util.List;
 @SpringBootApplication
 public class MybatisGeneratorApplication {
 
+    /**
+     * @return void
+     * @Author wangqiubao
+     * @Date 2019/11/19
+     * @Param [args]
+     * @Description 测试主函数
+     **/
     public static void main1(String[] args) {
         SpringApplication.run(MybatisGeneratorApplication.class, args);
     }
 
-    public static void main(String[] args) throws Exception{
+    /**
+     * @return void
+     * @Author wangqiubao
+     * @Date 2019/11/19
+     * @Param [args]
+     * @Description 自动生成代码主函数
+     **/
+    public static void main(String[] args) throws Exception {
         MybatisGeneratorApplication app = new MybatisGeneratorApplication();
 
         System.out.println(app.getClass().getResource("/").getPath());
@@ -26,7 +40,7 @@ public class MybatisGeneratorApplication {
         System.out.println(System.getProperty("user.dir"));
     }
 
-    public void generator() throws Exception{
+    public void generator() throws Exception {
 
         List<String> warnings = new ArrayList<String>();
         boolean overwrite = true;
@@ -37,7 +51,7 @@ public class MybatisGeneratorApplication {
         MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, callback, warnings);
         myBatisGenerator.generate(null);
 
-        for(String warning:warnings){
+        for (String warning : warnings) {
             System.out.println(warning);
         }
     }

@@ -1,0 +1,48 @@
+server:
+  port: 9090
+spring:
+  datasource:
+    url: jdbc:mysql://office-server:3306/UCareDB_Test?useSSL=false
+    username: test
+    password: 123456
+    driver-class-name: com.mysql.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    connectionInitSqls: set names utf8mb4
+    initial-size: 10
+    max-active: 100
+    min-idle: 3
+    max-wait: 5000
+    pool-prepared-statements: true
+    max-pool-prepared-statement-per-connection-size: 100
+    validation-query: select 1
+    validation-query-timeout: 100
+    test-on-borrow: true
+    test-on-return: true
+    test-while-idle: true
+    time-between-eviction-runs-millis: 30000
+    filters: stat
+    login-timeout: 5000
+    query-timeout: 30000
+    stat-view-servlet:
+      enabled: true
+      login-username: druid
+      login-password: 123456
+    filter:
+      stat:
+        log-slow-sql: true
+        slow-sql-millis: 3000
+
+    jackson:
+      time-zone:
+        Asia/Shanghai
+      default-property-inclusion: always
+      deserialization:
+        #允许对象忽略json中不存在的属性
+        fail_on_unknown_properties: false
+  # mybatis配置
+  mybatis:
+    mapper-locations: classpath*:/mappings/*/*.xml
+    type-aliases-package: net.cc.ucare.entity
+    configuration:
+      map-underscore-to-camel-case: true
+

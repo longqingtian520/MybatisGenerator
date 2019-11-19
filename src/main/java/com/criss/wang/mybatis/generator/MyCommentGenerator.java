@@ -3,6 +3,7 @@ package com.criss.wang.mybatis.generator;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.java.Field;
+import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
 import org.mybatis.generator.api.dom.java.InnerClass;
 import org.mybatis.generator.api.dom.java.Method;
 import org.mybatis.generator.internal.DefaultCommentGenerator;
@@ -45,6 +46,11 @@ public class MyCommentGenerator extends DefaultCommentGenerator {
         sb.append(introspectedColumn.getRemarks());
         field.addJavaDocLine(sb.toString().replace("\n", " "));
         field.addJavaDocLine(" */");
+        // 时间格式
+        if(field.getType().equals(FullyQualifiedJavaType.getDateInstance())){
+            field.addAnnotation("@JsonFormat(pattern=\"yyyy-MM-dd HH:mm:ss\")");
+            field.addAnnotation("@DateTimeFormat(pattern=\"yyyy-MM-dd HH:mm:ss\")");
+        }
     }
 
     public void addFieldComment(Field field, IntrospectedTable introspectedTable) {
