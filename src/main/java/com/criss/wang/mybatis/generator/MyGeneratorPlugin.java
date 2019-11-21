@@ -3,6 +3,7 @@ package com.criss.wang.mybatis.generator;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.dom.java.*;
@@ -18,6 +19,7 @@ import java.util.Random;
  * @Date 2019/11/18 16:35
  * @Description
  **/
+@Slf4j
 public class MyGeneratorPlugin extends SerializablePlugin {
 
     @Override
@@ -85,8 +87,14 @@ public class MyGeneratorPlugin extends SerializablePlugin {
             }
         }
 
-        // 修改Mapper文件中selectByPrimaryKey方法名 -- TODO 很有局限性，需要针对每个表修改
-        introspectedTable.setSelectByPrimaryKeyStatementId("selectByTaskHistoryId");
+        // 修改Mapper文件中selectByPrimaryKey方法名 -- TODO 很有局限性，需要针对每个修改
+//        introspectedTable.getTableConfiguration().setSelectByPrimaryKeyStatementEnabled(false); // 不生成该方法
+//        introspectedTable.getTableConfiguration().setDeleteByPrimaryKeyStatementEnabled(false);
+//        introspectedTable.getTableConfiguration().setDeleteByExampleStatementEnabled(false);
+//        introspectedTable.getTableConfiguration().setInsertStatementEnabled(false);
+//        introspectedTable.getTableConfiguration().setUpdateByPrimaryKeyStatementEnabled(false);
+//        introspectedTable.getTableConfiguration().setUpdateByExampleStatementEnabled(false);
+        introspectedTable.setSelectByPrimaryKeyStatementId("selectByTaskHistoryId"); // 更换方法名称
         return true;
     }
 

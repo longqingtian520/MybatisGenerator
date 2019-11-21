@@ -143,6 +143,12 @@
              -->
             <ignoreColumn column="media_num" delimitedColumnName=""/>
         </table>
+        <table tableName="TB_TASK_MEDIA" domainObjectName="TaskMedia"
+               enableCountByExample="false" enableUpdateByExample="false"
+               enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <generatedKey column="id" sqlStatement="Mysql" identity="true"/>
+        </table>
 
 
     </context>
