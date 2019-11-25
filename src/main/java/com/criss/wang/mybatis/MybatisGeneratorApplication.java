@@ -23,7 +23,7 @@ public class MybatisGeneratorApplication {
      * @Param [args]
      * @Description 测试主函数
      **/
-    public static void main8(String[] args) {
+    public static void main(String[] args) {
         SpringApplication.run(MybatisGeneratorApplication.class, args);
     }
 
@@ -34,7 +34,7 @@ public class MybatisGeneratorApplication {
      * @Param [args]
      * @Description 自动生成代码主函数
      **/
-    public static void main(String[] args) throws Exception {
+    public static void main8(String[] args) throws Exception {
         MybatisGeneratorApplication app = new MybatisGeneratorApplication();
 
         System.out.println(app.getClass().getResource("/").getPath());
