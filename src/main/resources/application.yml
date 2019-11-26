@@ -1,6 +1,18 @@
 server:
   port: 9094
 spring:
+  redis:
+    host: office-server
+    port: 6381
+    password: ucare@test!123
+    database: 0
+    timeout: 5000
+    lettuce:
+      pool:
+        max-active: 10
+        max-idle: 10
+        min-idle: 5
+        max-wait: 5000
   datasource:
     url: jdbc:mysql://office-server:3306/UCareDB_Test?useSSL=false
     username: test

@@ -1,10 +1,8 @@
 package com.criss.wang.mybatis.utils;
-
 import org.springframework.lang.Nullable;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author wangqiubao
@@ -17,7 +15,7 @@ public class MyUtils {
         return (collection != null ? collection.toArray(new String[0]) : new String[0]);
     }
 
-    public static void main(String[] args){
+    public void main(String[] args){
         List<String> collection = new ArrayList<>();
         collection.add("wang");
         collection.add("qiu");

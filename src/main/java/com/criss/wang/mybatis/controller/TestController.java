@@ -1,12 +1,19 @@
 package com.criss.wang.mybatis.controller;
 
+import com.criss.wang.mybatis.annocustom.ExtApiIdempotent;
+import com.criss.wang.mybatis.annocustom.ExtApiToken;
 import com.criss.wang.mybatis.service.TestService;
+import com.criss.wang.mybatis.utils.ConstantUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * @Author wangqiubao
@@ -17,6 +24,9 @@ import reactor.core.publisher.Mono;
 public class TestController {
     @Autowired
     private TestService testService;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Value("${service.wang.qiu.bao}")
     private String name;
@@ -40,6 +50,7 @@ public class TestController {
         System.out.println(nickName);
         System.out.println(String.format(taskKey, "D0202293"));
         System.out.println(child);
+        redisTemplate.opsForValue().set("criss", "wangqiubao");
         return testService.test(id);
     }
 
@@ -47,5 +58,20 @@ public class TestController {
     public Mono<String> hello(){
         return Mono.just("Welcome to reactive world");
     }
+
+    @RequestMapping("/indexPage")
+    @ExtApiToken
+    public String indexPage(HttpServletRequest req) {
+        return "indexPage";
+    }
+
+    @RequestMapping("/addOrderPage")
+    @ExtApiIdempotent(value = ConstantUtils.EXTAPIFROM)
+    public String addOrder() {
+//        int addOrder = orderMapper.addOrder(orderEntity);
+//        return addOrder > 0 ? "success" : "fail";
+        return null;
+    }
+
 
 }
